@@ -1,58 +1,31 @@
-const express = require('express');
+const express = require('express'); // granting access to express
 
-const app = express();
-const PORT = 5000;
+const app = express(); // loading express
 
-const artistListArray = [
-    {
-        name: 'Miles Davis',
-        born: 1926,
-        died: 1990,
-    },
-    {
-        name: 'Duke Ellington',
-        born: 1899,
-        died: 1974,
-    },
-    {
-        name: 'John Coltrane',
-        born: 1926,
-        died: 1987,
-    },
-    {
-        name: 'Louis Daniel Armstrong',
-        born: 1901,
-        died: 1971,
-    },
-];
+const PORT = 5000; // declaring variable setting specific port for server access
 
-const songListArray = [
-    {
-        title: 'Take Five',
-        artist: 'The Dave Brubeck Quartet',
-    },
-    {
-        title: 'So What',
-        artist: 'Miles Davis',
-    },
-    {
-        title: 'Sing Sing Sing',
-        artist: 'Benny Goodman',
-    },
-    {
-        title: 'Take the "A" Train',
-        artist: 'The Dave Brubeck Quartet',
-    },
-];
+const artists = require('./modules/artist.js');
 
-app.use(express.static('server/public'));
+const songs = require('./modules/song.js');
+
+const albums = require('./modules/album.js');
+
+
+app.use(express.static('./server/public'));
 
 app.get('/artist', (req, res) => {
-    res.send(artistListArray);
+    res.send(artists);
 });
 
-// TODO - Add GET for songs
+app.get('/song', (req, res) => {
+    res.send(songs);
+});
 
+app.get('/album', (req, res) => {
+    res.send(albums);
+});
+
+// listening to assigned port variable for incoming requests
 app.listen(PORT, () => {
     console.log('listening on port', PORT)
 });
